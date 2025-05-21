@@ -1,0 +1,35 @@
+[project]
+name = "loguru-otel-lab"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "jlugao",email = "joaolhullier@gmail.com"}
+]
+readme = "README.md"
+requires-python = "^3.13"
+dependencies = [
+    "fastapi (>=0.115.12,<0.116.0)",
+    "loguru (>=0.7.3,<0.8.0)",
+    "opentelemetry-api (>=1.33.0,<2.0.0)",
+    "opentelemetry-sdk (>=1.33.0,<2.0.0)",
+    "opentelemetry-instrumentation-httpx (>=0.54b0,<0.55)",
+    "opentelemetry-instrumentation-fastapi (>=0.54b0,<0.55)",
+    "uvicorn[standard]",
+    "sqlalchemy (>=2.0.0,<3.0.0)",
+    "pydantic (>=2.0.0,<3.0.0)",
+    "alembic (>=1.13.1,<2.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "opentelemetry-exporter-otlp-proto-http (>=1.33.1,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)"
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.scripts]
+start = "loguru_otel_lab.main:start"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+

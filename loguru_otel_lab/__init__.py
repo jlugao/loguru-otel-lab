@@ -1,0 +1,1 @@
+"""Loguru OpenTelemetry Lab package."""

@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      OTEL_SERVICE_NAME: "sample"
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://grafana:4317
+      OTEL_METRIC_EXPORT_INTERVAL: "5000" # so we don't have to wait 60s for metrics
+    depends_on:
+      - grafana
+
+
+  grafana:
+    container_name: lgtm
+    ports:
+      - '3000:3000'
+      - '3100:3100'
+      - '4317:4317'
+      - '4318:4318'
+    environment:
+      - GF_PATHS_DATA=/data/grafana
+    image: 'docker.io/grafana/otel-lgtm'
+
+
+  alloy:
+    image: grafana/alloy:latest
+    ports:
+      - 12345:12345
+    volumes:
+      - ./config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+
